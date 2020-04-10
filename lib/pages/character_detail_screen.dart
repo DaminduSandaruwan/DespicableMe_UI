@@ -21,13 +21,16 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          DecoratedBox(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: widget.character.colors,
-                begin: Alignment.topRight,
-                end: Alignment.bottomLeft
-              )
+          Hero(
+            tag: "background-${widget.character.name}",
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: widget.character.colors,
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft
+                )
+              ),
             ),
           ),
           SingleChildScrollView(            
@@ -53,13 +56,19 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     height:screenHeight*0.45 ,
                   )
                 ),
-                Text(
-                  widget.character.name,
-                  style: AppTheme.heading,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal:32.0, vertical: 8),
+                  child: Text(
+                    widget.character.name,
+                    style: AppTheme.heading,
+                  ),
                 ),
-                Text(
-                  widget.character.description,
-                  style: AppTheme.subHeading,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32,0,8,32),
+                  child: Text(
+                    widget.character.description,
+                    style: AppTheme.subHeading,
+                  ),
                 ),
               ],
             ),

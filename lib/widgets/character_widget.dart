@@ -24,15 +24,18 @@ class CharacterWidget extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             child: ClipPath(
               clipper: CharacterCardBackgroundClipper(),
-              child: Container(
-                height: 0.55 * screenHeight,
-                width: 0.9 * screenWidth,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: characters[0].colors,
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft
-                  )
+              child: Hero(
+                tag: "background-${characters[0].name}",
+                child: Container(
+                  height: 0.55 * screenHeight,
+                  width: 0.9 * screenWidth,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: characters[0].colors,
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft
+                    )
+                  ),
                 ),
               ),
             ),
