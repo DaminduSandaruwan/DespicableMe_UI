@@ -15,7 +15,7 @@ class CharacterWidget extends StatelessWidget {
       onTap: (){
         Navigator.push(context, PageRouteBuilder(
           transitionDuration: const Duration(milliseconds:350),
-          pageBuilder: (context, _, __) => CharacterDetailScreen()
+          pageBuilder: (context, _, __) => CharacterDetailScreen(character:characters[0])
         ));
       },
       child: Stack(
