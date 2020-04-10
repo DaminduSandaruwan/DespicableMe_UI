@@ -1,4 +1,5 @@
 import 'package:despicable_me/models/character.dart';
+import 'package:despicable_me/styleguide.dart';
 import 'package:despicable_me/widgets/clipper.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,24 @@ class CharacterWidget extends StatelessWidget {
             ),
           ),
         ),
+        Align(
+          alignment: Alignment(0,-0.5),
+          child: Image.asset(
+            characters[0].imagePath,
+            height: screenHeight * 0.55,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left:48,right: 16, bottom: 16),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(characters[0].name, style: AppTheme.heading),
+              Text("Click to Read More",style: AppTheme.subHeading),
+            ],
+          ),
+        )
       ],
     );
   }

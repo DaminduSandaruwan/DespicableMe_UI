@@ -19,10 +19,10 @@ class AppTheme{
 
   static final TextStyle heading = TextStyle(
     fontFamily: 'WorkSans',
-    fontWeight: FontWeight.normal,
+    fontWeight: FontWeight.w900,
     fontSize: 34,
     color: Colors.white.withOpacity(0.8),
-    letterSpacing: 1.1,
+    letterSpacing: 1.2,
   );
 
   static final TextStyle subHeading = TextStyle(
