@@ -42,9 +42,12 @@ class CharacterWidget extends StatelessWidget {
           ),
           Align(
             alignment: Alignment(0,-0.5),
-            child: Image.asset(
-              characters[0].imagePath,
-              height: screenHeight * 0.55,
+            child: Hero(
+              tag: "image-{$characters[0].name}",
+                          child: Image.asset(
+                characters[0].imagePath,
+                height: screenHeight * 0.55,
+              ),
             ),
           ),
           Padding(
@@ -53,7 +56,18 @@ class CharacterWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(characters[0].name, style: AppTheme.heading),
+                Hero(
+                  tag: "name-${characters[0].name}",
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Container(                    
+                      child: Text(
+                        characters[0].name, 
+                        style: AppTheme.heading
+                        )
+                      )
+                    ),
+                ),
                 Text("Click to Read More",style: AppTheme.subHeading),
               ],
             ),

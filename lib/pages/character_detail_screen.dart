@@ -51,16 +51,27 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                 ),
                 Align(
                   alignment: Alignment.topRight,
-                  child: Image.asset(
-                    widget.character.imagePath, 
-                    height:screenHeight*0.45 ,
+                  child: Hero(
+                    tag: "image-{$characters[0].name}",
+                    child: Image.asset(
+                      widget.character.imagePath, 
+                      height:screenHeight*0.45 ,
+                    ),
                   )
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal:32.0, vertical: 8),
-                  child: Text(
-                    widget.character.name,
-                    style: AppTheme.heading,
+                  child: Hero(
+                    tag: "name-${characters[0].name}",
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        child: Text(
+                          widget.character.name,
+                          style: AppTheme.heading,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
