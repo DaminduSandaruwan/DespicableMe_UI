@@ -1,5 +1,6 @@
 
 
+import 'package:after_layout/after_layout.dart';
 import 'package:despicable_me/models/character.dart';
 import 'package:despicable_me/styleguide.dart';
 import 'package:flutter/material.dart';
@@ -7,19 +8,26 @@ import 'package:flutter/material.dart';
 class CharacterDetailScreen extends StatefulWidget {
   final Character character;
 
+  final double _expandedBottomSheetBottomPosition=0;
+  final double _collapsedBottomSheetBottomPosition=-250;
+  final double _completeCollapsedBottomSheetBottomPosition=-330;
+
   const CharacterDetailScreen({Key key, this.character}) : super(key: key);
 
   @override
   _CharacterDetailScreenState createState() => _CharacterDetailScreenState();
 }
 
-class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
+class _CharacterDetailScreenState extends State<CharacterDetailScreen> with AfterLayoutMixin<CharacterDetailScreen> {
+  
+  double _bottomSheetBottomPosition =-330;
+  bool isCollapsed =false;
+
+  
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    
-    
-    
+       
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -48,6 +56,9 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                     icon:Icon(Icons.close), 
                     color: Colors.white.withOpacity(0.9),
                     onPressed: (){
+                      setState(() {
+                        _bottomSheetBottomPosition=widget._completeCollapsedBottomSheetBottomPosition;
+                      });
                       Navigator.pop(context);
                     },
                   ),
@@ -78,7 +89,7 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(32,0,8,32),
+                  padding: const EdgeInsets.fromLTRB(32,0,8,128),
                   child: Text(
                     widget.character.description,
                     style: AppTheme.subHeading,
@@ -87,8 +98,10 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
+          AnimatedPositioned(
+            duration: const Duration(milliseconds:500),
+            curve: Curves.decelerate,
+            bottom: _bottomSheetBottomPosition,
             left: 0,
             right: 0,
             child: Container(
@@ -102,13 +115,16 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(horizontal:32),
-                    height: 80,
-                    child: Text(
-                      "Clips",
-                      style: AppTheme.subHeading.copyWith(color:Colors.black),
+                  InkWell(
+                    onTap: _onTap,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.symmetric(horizontal:32),
+                      height: 80,
+                      child: Text(
+                        "Clips",
+                        style: AppTheme.subHeading.copyWith(color:Colors.black),
+                      ),
                     ),
                   ),
                   SingleChildScrollView(
@@ -173,6 +189,27 @@ class _CharacterDetailScreenState extends State<CharacterDetailScreen> {
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
     );
+  }
+
+
+  _onTap(){    
+    setState(() {
+        _bottomSheetBottomPosition = isCollapsed 
+          ? widget._expandedBottomSheetBottomPosition 
+          : widget._collapsedBottomSheetBottomPosition;
+        isCollapsed = !isCollapsed;
+      });
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) {
+    Future.delayed(const Duration(milliseconds:500),(){
+      setState(() {
+        isCollapsed=true;
+        _bottomSheetBottomPosition=widget._collapsedBottomSheetBottomPosition;
+      });
+    });
+    
   }
 }
 
