@@ -57,7 +57,11 @@ class _CharacterListingScreenState extends State<CharacterListingScreen> {
                   controller: _pageController,
                   children: <Widget>[
                     for (var i = 0; i < characters.length; i++)
-                      CharacterWidget(character: characters[i])               
+                      CharacterWidget(
+                        character: characters[i],
+                        pageController: _pageController,
+                        currentPage: i
+                      )
                   ],
                 ),
               )
